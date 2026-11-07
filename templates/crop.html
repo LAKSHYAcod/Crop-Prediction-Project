@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Smart Crop Prediction</h1>
+            <p>AI-powered agricultural intelligence for optimal crop selection</p>
+        </div>
+
+        <div class="prediction-card">
+            <form action="{{url_for('predict')}}" method="post">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Nitrogen (N)</label>
+                        <input type="number" name="nitrogen" step="0.1" min="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Phosphorus (P)</label>
+                        <input type="number" name="Phosphorus" step="0.1" min="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Potassium (K)</label>
+                        <input type="number" name="potassium" step="0.1" min="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Temperature (°C)</label>
+                        <input type="number" name="temperature" step="0.1" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Humidity (%)</label>
+                        <input type="number" name="humidity" step="0.1" min="0" max="100" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>pH Level</label>
+                        <input type="number" name="pH" step="0.1" min="0" max="14" required>
+                    </div>
+                    
+                    <div class="input-group full-width">
+                        <label>Rainfall (mm)</label>
+                        <input type="number" name="rainfall" step="0.1" min="0" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-btn">
+                    🚀 Predict Optimal Crop
+                </button>
+            </form>
+
+            {% if Prediction_block %}
+            <div class="prediction-result">
+                🌾 Recommended Crop: {{ Prediction_block }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>AI-Powered</h3>
+                <p>Advanced machine learning algorithms</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Data-Driven</h3>
+                <p>Based on soil and climate analysis</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>Sustainable</h3>
+                <p>Optimized for environmental health</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast Results</h3>
+                <p>Instant predictions in seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.querySelectorAll('.input-group input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Form submission animation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const btn = document.querySelector('.predict-btn');
+            btn.innerHTML = '🔄 Analyzing...';
+            btn.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)';
+        });
+
+        // Add floating animation to feature icons
+        document.querySelectorAll('.feature-icon').forEach((icon, index) => {
+            icon.style.animationDelay = `${index * 0.2}s`;
+            icon.style.animation = 'float 3s ease-in-out infinite';
+        });
+    </script>
+</body>
+</html>
